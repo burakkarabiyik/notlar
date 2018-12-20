@@ -1,0 +1,4 @@
+git add .
+git commit -m "not defteri wifihack docker"
+git remote add origin https://github.com/burakkarabiyik/notlar.git
+git push -u origin master
