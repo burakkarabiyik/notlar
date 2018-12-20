@@ -1,0 +1,115 @@
+docker ps -a  : Bütün container leri göster.....
+docker rm -f $(docker ps -a) : Tüm konteynırları sil 
+docker rm abc : abc sil
+docker search abc : abc konteynır var mı sorgula
+docker pull abc:latest : abc indir
+docker rmi $(docker images) : tüm images sil
+docker run
+docker container prune : tüm konteynırları sil
+
+
+Rancher-os
+----------------------------------
+
+ros install -d /dev/sda --append "rancher.password=mySecret" ::kurulum için
+
+
+------------Curl---------
+[root@rancheros ~]# echo 'docker run --rm radial/busyboxplus:curl curl $@' > /usr/bin/curl && chmod +x /usr/bin/curl
+[root@rancheros ~]# curl
+-------------------------
+
+---------Rancher-compose-------------
+
+#!/bin/bash
+#run locally: ` curl -s https://gist.githubusercontent.com/jeefy/7fed19a335d5caae24639e7ee7be1b71/raw/install-rancher-compose.sh | sh `
+
+VERSION_NUM="0.12.5"
+
+wget https://github.com/rancher/rancher-compose/releases/download/v${VERSION_NUM}/rancher-compose-linux-amd64-v${VERSION_NUM}.tar.gz
+gunzip rancher-compose-linux-amd64-v${VERSION_NUM}.tar.gz
+tar xf rancher-compose-linux-amd64-v${VERSION_NUM}.tar
+rm rancher-compose-linux-amd64-v${VERSION_NUM}.tar
+sudo mv rancher-compose-v${VERSION_NUM}/rancher-compose /usr/bin/rancher-compose
+sudo chmod +x /usr/bin/rancher-compose
+rm -r rancher-compose-v${VERSION_NUM}
+
+----------------------------------------------
+
+Docker Komutlar
+$docker stats
+CONTAINER ID        NAME                CPU %               MEM USAGE / LIMIT     MEM %               NET I/O             BLOCK I/O           PIDS
+bed224a1446d        distracted_easley   0.03%               9.473MiB / 1.949GiB   0.47%               108kB / 3.01MB      34.8MB / 336kB      8
+
+$docker inspect "isim"
+-----tüm konfigure bilgileri
+
+$docker container exec -it nginxx bash
+konteynıra bağlandıkkkkkk
+
+------------------------------------------------------
+
+--------Docker Network-----------
+$docker network create i_net
+a23k23l32ka2
+$docker network connect i_net "container ismi"
+$docker network disconnect i_net "container ismi"
+$docker network rm i_net
+$docker network ls
+
+$docker container exec -it apache ping i_net
+
+--------------------------------------------------------------
+
+version: '3.1'
+
+services:
+
+  wordpress:
+    image: wordpress
+    ports:
+      - 8080:80
+    environment:
+      WORDPRESS_DB_HOST: mysql
+      WORDPRESS_DB_NAME: wordpress
+      WORDPRESS_DB_USER: wp
+      WORDPRESS_DB_PASSWORD: pass
+    volumes:
+      - ./wordpress-data:/var/www/html
+
+  mysql:
+    image: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: pass
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wp
+      MYSQL_PASSWORD: pass
+    volumes:
+      - mysql-db:/var/lib/mysql
+
+volumes:
+  mysql-db:
+
+-------------------------------------------------------------------------
+ 
+ ubuntu-----------------
+
+ iputils-ping
+ net-tools
+
+
+---------------------------------------------------------------------------
+Docker Swarm
+
+docker service update "isim"   --replicas 4 >>kopya oluştur
+docker-machine ssh node1
+docker-machine env node1
+docker swarm init --advertise-addr 172.17.0.1 
+docker swarm join-token manager
+docker swarm join-token worker
+docker  node update --role manager "isim"
+docker service create --name mysql --network wordpress -e MYSQL_ROOT_PASSWORD=wp -e MYSQL_USER=WP -e MYSQL_DATABASE=wp -e MYSQL_PASSWORD=wp mysql
+docker service create --name worpdress --network wordpress -p 80:80 wordpress
+docker secret create mongo-pass mongo-pass.txt
+echo "burak"|docker secret create mongo-user -
+

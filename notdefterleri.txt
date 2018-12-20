@@ -1,0 +1,46 @@
+
+######### Vİ #################
+    k
+h       l
+    l
+
+
+shift+J ==> alt satırı üst satırla birleştirir.
+shift + A ==> satır sonuna git
+:7  ==>>> 7. satıra git
+
+ctrl+A ===> sayı +1 
+:w  ===> kaydet
+:q ===> çık
+:w deneme2.txt ==> ismi ile kaydeder
+
+dd ==> sil satırı
+R ===> geri al
+CTRL+R ==> ileri al
+
+
+
+########### NANO ################
+
+
+ctrl+F = SAĞ
+CTRL+B = Sol
+CTRL+P = Yukarı
+CTRL+N = Aşağı
+
+CTRL+A = satır başı
+CTRL+E = satır sonu
+
+CTRL+Y = Dosya başı
+CTRL+V = Dosya sonu
+
+
+CTRL+K = KES
+CTRL+U = Yapıştır
+CTRL+w = Ara ctrl+R==> Replace
+
+
+
+
+
+
